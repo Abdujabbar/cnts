@@ -10,7 +10,7 @@ namespace abdujabbor\counter;
 
 use abdujabbor\counter\io\IOStream;
 
-class LinkClickCounter extends AbstractEventCounter implements ICounter
+class LinkClickCounter extends AbstractEventCounter
 {
     protected $requiredFields = ['id', 'link'];
     public function __construct(IOStream $io, array $args = [])

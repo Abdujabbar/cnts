@@ -10,7 +10,7 @@ namespace abdujabbor\counter;
 
 use abdujabbor\counter\io\IOStream;
 
-class PostViewCounter extends AbstractEventCounter implements ICounter
+class PostViewCounter extends AbstractEventCounter
 {
     protected $requiredFields = ['id'];
 
@@ -32,6 +32,7 @@ class PostViewCounter extends AbstractEventCounter implements ICounter
         $browser = get_browser();
         return [
             'id' => $this->key,
+            'event' => $this->event,
             'ip' => $_SERVER['REMOTE_ADDR'],
             'browser' => $browser['browser'],
             'platform' => $browser['platform'],

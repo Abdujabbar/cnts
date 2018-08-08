@@ -62,11 +62,6 @@ abstract class AbstractEventCounter
         return $this->requiredFields;
     }
 
-    public function setAmount($amount = 0)
-    {
-        $this->amount = $amount;
-    }
-
     public function incrementAmount(): void
     {
         if ($this->availableForIncrement()) {
