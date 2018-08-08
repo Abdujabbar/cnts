@@ -40,7 +40,8 @@ class LinkClickEvent extends AbstractEventCounter
             'id' => $this->key,
             'event' => $this->event,
             'ip' => !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost',
-            'user-agent' => !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : ''
+            'user-agent' => !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '',
+            'timestamp' => time(),
         ];
     }
 

@@ -37,15 +37,12 @@ class PostViewEvent extends AbstractEventCounter
      */
     public function generateRecord(): array
     {
-        $browser = get_browser();
         return [
             'id' => $this->key,
             'event' => $this->event,
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'browser' => $browser['browser'],
-            'platform' => $browser['platform'],
-            'version' => $browser['version'],
-            'time' => time(),
+            'ip' => !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'localhost',
+            'user-agent' => !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '',
+            'timestamp' => time(),
         ];
     }
 
