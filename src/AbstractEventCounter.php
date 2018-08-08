@@ -30,7 +30,6 @@ abstract class AbstractEventCounter
         }
     }
 
-
     public function setEvent($event = EventTypes::EVENT_VIEW)
     {
         $this->event = $event;
@@ -68,6 +67,15 @@ abstract class AbstractEventCounter
         $this->amount = $amount;
     }
 
+    public function incrementAmount(): void
+    {
+        if ($this->availableForIncrement()) {
+            $this->addRecord();
+            $this->amount++;
+            $this->updateCounter();
+        }
+    }
+
     /**
      * @return string
      */
@@ -77,4 +85,14 @@ abstract class AbstractEventCounter
      * @return array
      */
     abstract public function generateRecord():array;
+
+    /**
+     * @return int
+     */
+    abstract public function getAmount():int;
+
+    /**
+     * @return bool
+     */
+    abstract public function availableForIncrement(): bool;
 }

@@ -45,13 +45,6 @@ class PostViewCounter extends AbstractEventCounter implements ICounter
         return $this->amount;
     }
 
-    public function incrementAmount(): void
-    {
-        if ($this->availableForIncrement()) {
-            $this->amount++;
-        }
-    }
-
     public function availableForIncrement(): bool
     {
         return true;
