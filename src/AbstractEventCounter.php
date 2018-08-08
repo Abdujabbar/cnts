@@ -17,6 +17,12 @@ abstract class AbstractEventCounter
     protected $requiredFields = [];
     protected $amount;
     protected $ioStream;
+
+    /**
+     * AbstractEventCounter constructor.
+     * @param IOStream $io
+     * @param array $args
+     */
     public function __construct(IOStream $io, $args = [])
     {
         $this->args = $args;
@@ -30,33 +36,50 @@ abstract class AbstractEventCounter
         }
     }
 
+    /**
+     * @param string $event
+     */
     public function setEvent($event = EventTypes::EVENT_VIEW)
     {
         $this->event = $event;
     }
 
+    /**
+     * @return bool
+     */
     public function addRecord():bool
     {
         return $this->ioStream->save($this->key, $this->generateRecord());
     }
 
+    /**
+     * @return bool
+     */
     public function updateCounter():bool
     {
         return $this->ioStream->updateCounter($this->getKey(), $this->amount);
     }
 
-
+    /**
+     * @return mixed
+     */
     protected function getKey()
     {
         return $this->key;
     }
 
+    /**
+     * @return bool
+     */
     public function validateInputParams(): bool
     {
         $keys = array_keys(array_filter($this->args));
         return $keys === $this->requiredFields;
     }
 
+    /**
+     * @return array
+     */
     public function getRequiredFields():array
     {
         return $this->requiredFields;

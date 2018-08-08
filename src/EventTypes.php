@@ -12,4 +12,5 @@ class EventTypes
 {
     const EVENT_VIEW = 'view';
     const EVENT_CLICK = 'click';
+    const EVENT_SCROLL_DOWN = 'scroll_down';
 }
