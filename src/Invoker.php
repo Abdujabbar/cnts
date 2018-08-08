@@ -6,16 +6,15 @@
  * Time: 4:46 PM
  */
 
-namespace counter;
+namespace abdujabbor\counter;
 
-use abdujabbor\counter\AbstractEventCounter;
 use abdujabbor\counter\storage\IOStorage;
 
 class Invoker
 {
     protected $event;
     protected $pdo;
-    public function __construct(AbstractEventCounter $event, IOStorage $io)
+    public function __construct(AbstractEventCounter $event, IOStorage $io = null)
     {
         $this->event = $event;
         $this->pdo = $io;

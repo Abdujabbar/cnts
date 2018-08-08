@@ -14,6 +14,7 @@ abstract class AbstractEventCounter
     protected $args = [];
     protected $requiredFields = [];
     protected $amount;
+    protected $errors = [];
 
     /**
      * AbstractEventCounter constructor.
@@ -27,9 +28,23 @@ abstract class AbstractEventCounter
         $this->generateKey();
         $this->amount = $amount;
 
-        if (!$this->validateInputParams()) {
-            throw new \InvalidArgumentException(sprintf("Passed arguments invalid, please make sure that "));
+        if (!$this->validateArgs()) {
+            throw new \InvalidArgumentException(sprintf("Passed invalid arguments, for lookup call method getErrors: %s", json_encode($this->getErrors())));
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors() {
+        return $this->errors;
+    }
+
+    /**
+     * @return int
+     */
+    public function hasErrors() {
+        return count($this->getErrors());
     }
 
 
@@ -53,10 +68,20 @@ abstract class AbstractEventCounter
     /**
      * @return bool
      */
-    protected function validateInputParams(): bool
+    protected function validateArgs(): bool
     {
         $keys = array_keys(array_filter($this->args));
-        return $keys === $this->requiredFields;
+        if(!$keys === $this->requiredFields) {
+            $this->errors['attributes'] = "Required fields doesn't passed";
+        }
+        return !$this->hasErrors();
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmount() {
+        return $this->amount;
     }
 
     /**
@@ -67,10 +92,15 @@ abstract class AbstractEventCounter
         return $this->requiredFields;
     }
 
+    /**
+     * @void
+     */
     public function incrementAmount(): void
     {
         $this->amount++;
     }
+
+
 
     /**
      * @return string
@@ -81,11 +111,6 @@ abstract class AbstractEventCounter
      * @return array
      */
     abstract public function generateRecord():array;
-
-    /**
-     * @return int
-     */
-    abstract public function getAmount():int;
 
     /**
      * @return bool

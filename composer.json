@@ -4,7 +4,7 @@
   },
   "autoload": {
     "psr-4": {
-      "counter\\": "src/"
+      "abdujabbor\\counter\\": "src/"
     }
   },
   "require-dev": {
