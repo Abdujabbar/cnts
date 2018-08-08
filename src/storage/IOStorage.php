@@ -6,8 +6,8 @@
  * Time: 2:00 PM
  */
 
-namespace abdujabbor\counter\io;
+namespace abdujabbor\counter\storage;
 
-interface IOStream extends IReader, IWriter
+interface IOStorage extends Reader, Writer
 {
 }

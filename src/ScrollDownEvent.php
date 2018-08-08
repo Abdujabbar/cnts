@@ -8,16 +8,18 @@
 
 namespace abdujabbor\counter;
 
-
-use abdujabbor\counter\io\IOStream;
-
-class ScrollDownCounter extends AbstractEventCounter
+class ScrollDownEvent extends AbstractEventCounter
 {
     protected $requiredFields = ['id'];
 
-    public function __construct(IOStream $io, array $args = [])
+    /**
+     * ScrollDownEvent constructor.
+     * @param int $amount
+     * @param array $args
+     */
+    public function __construct(int $amount = 0, array $args = [])
     {
-        parent::__construct($io, $args);
+        parent::__construct($amount, $args);
         $this->setEvent(EventTypes::EVENT_SCROLL_DOWN);
     }
 

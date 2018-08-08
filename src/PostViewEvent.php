@@ -8,20 +8,18 @@
 
 namespace abdujabbor\counter;
 
-use abdujabbor\counter\io\IOStream;
-
-class PostViewCounter extends AbstractEventCounter
+class PostViewEvent extends AbstractEventCounter
 {
     protected $requiredFields = ['id'];
 
     /**
-     * PostViewCounter constructor.
-     * @param IOStream $io
+     * PostViewEvent constructor.
+     * @param int $amount
      * @param array $args
      */
-    public function __construct(IOStream $io, array $args = [])
+    public function __construct(int $amount = 0, array $args = [])
     {
-        parent::__construct($io, $args);
+        parent::__construct($amount, $args);
         $this->setEvent(EventTypes::EVENT_VIEW);
     }
 

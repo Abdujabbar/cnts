@@ -6,9 +6,9 @@
  * Time: 1:58 PM
  */
 
-namespace abdujabbor\counter\io;
+namespace abdujabbor\counter\storage;
 
-interface IReader
+interface Reader
 {
     public function get($key);
 }

@@ -7,8 +7,6 @@
  */
 namespace abdujabbor\counter;
 
-use abdujabbor\counter\io\IOStream;
-
 abstract class AbstractEventCounter
 {
     protected $event;
@@ -16,25 +14,24 @@ abstract class AbstractEventCounter
     protected $args = [];
     protected $requiredFields = [];
     protected $amount;
-    protected $ioStream;
 
     /**
      * AbstractEventCounter constructor.
-     * @param IOStream $io
+     * @param int $amount
      * @param array $args
      */
-    public function __construct(IOStream $io, $args = [])
+    public function __construct($amount = 0, $args = [])
     {
         $this->args = $args;
         $this->setEvent();
         $this->generateKey();
-        $this->ioStream = $io;
-        $this->amount = $this->ioStream->get($this->getKey());
+        $this->amount = $amount;
 
         if (!$this->validateInputParams()) {
             throw new \InvalidArgumentException(sprintf("Passed arguments invalid, please make sure that "));
         }
     }
+
 
     /**
      * @param string $event
@@ -44,21 +41,6 @@ abstract class AbstractEventCounter
         $this->event = $event;
     }
 
-    /**
-     * @return bool
-     */
-    public function addRecord():bool
-    {
-        return $this->ioStream->save($this->key, $this->generateRecord());
-    }
-
-    /**
-     * @return bool
-     */
-    public function updateCounter():bool
-    {
-        return $this->ioStream->updateCounter($this->getKey(), $this->amount);
-    }
 
     /**
      * @return mixed
@@ -71,7 +53,7 @@ abstract class AbstractEventCounter
     /**
      * @return bool
      */
-    public function validateInputParams(): bool
+    protected function validateInputParams(): bool
     {
         $keys = array_keys(array_filter($this->args));
         return $keys === $this->requiredFields;
@@ -80,18 +62,14 @@ abstract class AbstractEventCounter
     /**
      * @return array
      */
-    public function getRequiredFields():array
+    protected function getRequiredFields():array
     {
         return $this->requiredFields;
     }
 
     public function incrementAmount(): void
     {
-        if ($this->availableForIncrement()) {
-            $this->addRecord();
-            $this->amount++;
-            $this->updateCounter();
-        }
+        $this->amount++;
     }
 
     /**
