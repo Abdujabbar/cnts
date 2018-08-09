@@ -43,7 +43,7 @@ abstract class AbstractEventCounter
     }
 
     /**
-     * @return int
+     * @return bool
      */
     public function hasErrors()
     {
