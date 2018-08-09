@@ -21,10 +21,19 @@ class LinkClickEventTest extends \PHPUnit\Framework\TestCase
     {
         $linkClickEvent = new \abdujabbor\counter\LinkClickEvent(
             0,
-                                                                ['link' => 'http://google.com', 'id' => 10]
+                    ['link' => 'http://google.com', 'id' => 10]
         );
         $invoker = new \abdujabbor\counter\Invoker($linkClickEvent);
         $invoker->run();
         $this->assertSame(1, $linkClickEvent->getAmount());
+    }
+
+    public function testInputParams()
+    {
+        $this->expectException('InvalidArgumentException');
+        $linkClickEvent = new \abdujabbor\counter\LinkClickEvent(
+            0,
+            []
+        );
     }
 }

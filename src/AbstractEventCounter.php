@@ -24,13 +24,14 @@ abstract class AbstractEventCounter
     public function __construct($amount = 0, $args = [])
     {
         $this->args = $args;
-        $this->setEvent();
-        $this->generateKey();
-        $this->amount = $amount;
 
         if (!$this->validateArgs()) {
             throw new \InvalidArgumentException(sprintf("Passed invalid arguments, for lookup call method getErrors: %s", json_encode($this->getErrors())));
         }
+
+        $this->setEvent();
+        $this->generateKey();
+        $this->amount = $amount;
     }
 
     /**
@@ -46,7 +47,7 @@ abstract class AbstractEventCounter
      */
     public function hasErrors()
     {
-        return count($this->getErrors());
+        return count($this->getErrors()) > 0;
     }
 
 
@@ -75,9 +76,18 @@ abstract class AbstractEventCounter
     protected function validateArgs(): bool
     {
         $keys = array_keys(array_filter($this->args));
-        if (!$keys === $this->requiredFields) {
-            $this->errors['attributes'] = "Required fields doesn't passed";
+        $requiredFields = $this->getRequiredFields();
+        sort($requiredFields);
+        sort($keys);
+        
+        if (!($keys === $requiredFields)) {
+            $this->errors['attributes'] = sprintf(
+                "Invalid arguments passed, required fields are: %s",
+                                                    implode(",", $requiredFields)
+            );
         }
+
+
         return !$this->hasErrors();
     }
 
