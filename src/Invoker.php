@@ -13,20 +13,14 @@ use abdujabbor\counter\storage\IOStorage;
 class Invoker
 {
     protected $event;
-    protected $pdo;
-    public function __construct(AbstractEventCounter $event, IOStorage $io = null)
+    public function __construct(AbstractEventCounter $event)
     {
         $this->event = $event;
-        $this->pdo = $io;
     }
 
 
     public function run()
     {
-        if ($this->event->availableForIncrement()) {
-            //$this->pdo->save($this->event->getKey(), $this->event->generateRecord());
-            $this->event->incrementAmount();
-            //$this->pdo->updateCounter($this->event->getKey(), $this->event->getAmount());
-        }
+        $this->event->execute();
     }
 }

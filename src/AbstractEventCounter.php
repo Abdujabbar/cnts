@@ -34,6 +34,19 @@ abstract class AbstractEventCounter
         $this->amount = $amount;
     }
 
+
+    /**
+     * @void
+     */
+    public function execute()
+    {
+        if ($this->availableForIncrement()) {
+            //pdo add record
+            $this->incrementAmount();
+            //pdo update record
+        }
+    }
+
     /**
      * @return array
      */
