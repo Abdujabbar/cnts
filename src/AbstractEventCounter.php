@@ -58,6 +58,7 @@ abstract class AbstractEventCounter
 
 
     /**
+     * Returns key for updating record counts
      * @return mixed
      */
     protected function getKey()
@@ -66,6 +67,7 @@ abstract class AbstractEventCounter
     }
 
     /**
+     * method for validating input arguments, in every nested class you can write your own rules
      * @return bool
      */
     protected function validateArgs(): bool
@@ -78,6 +80,7 @@ abstract class AbstractEventCounter
     }
 
     /**
+     * Returns value of amount of calculations
      * @return int
      */
     public function getAmount() {
@@ -85,6 +88,7 @@ abstract class AbstractEventCounter
     }
 
     /**
+     * This method will return need fields for working and calculate event
      * @return array
      */
     protected function getRequiredFields():array
@@ -93,6 +97,7 @@ abstract class AbstractEventCounter
     }
 
     /**
+     * This method will be increment the value of amount of event
      * @void
      */
     public function incrementAmount(): void
@@ -103,16 +108,23 @@ abstract class AbstractEventCounter
 
 
     /**
+     * This method will generate needle key for counter, for example for postViews the postID
+     * will be key for counter, for LinkClick you can get link url string as key string
      * @return string
      */
     abstract public function generateKey():string;
 
     /**
+     * This method will generate the record about event
+     * For example it can contain event, ip, timestamp, user-agent
      * @return array
      */
     abstract public function generateRecord():array;
 
     /**
+     * This method will check is available to incrementing, for example if you want
+     * calculate only unique views in current method you would write needle rules, check from table
+     * if it's already exists record in table it means you would not increment the event counter
      * @return bool
      */
     abstract public function availableForIncrement(): bool;

@@ -46,7 +46,6 @@ class LinkClickEvent extends AbstractEventCounter
     }
 
     /**
-     * @method for rules unique or other filters
      * @return bool
      */
     public function availableForIncrement(): bool
