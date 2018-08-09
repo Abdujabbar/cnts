@@ -7,11 +7,9 @@
  */
 
 require_once "../vendor/autoload.php";
+
 try {
-    $linkClickEvent = new \abdujabbor\counter\LinkClickEvent(0,
-        ['link' => 'http://google.com', 'id' => 10]);
+    $linkClickCount = new \abdujabbor\counter\LinkClickEvent(0, ['link' => 'dsada', 'id' => 10]);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-
-//var_dump($linkClickEvent->getErrors());

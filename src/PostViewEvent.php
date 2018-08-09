@@ -59,9 +59,11 @@ class PostViewEvent extends AbstractEventCounter
      */
     public function validateArgs(): bool
     {
-        if(parent::validateArgs()) {
-            return is_numeric($this->args['id']);
+        if (parent::validateArgs()) {
+            if (!is_numeric($this->args['id'])) {
+                $this->errors['id'] = "Param id must be an integer";
+            }
         }
-        return false;
+        return !$this->hasErrors();
     }
 }

@@ -36,14 +36,16 @@ abstract class AbstractEventCounter
     /**
      * @return array
      */
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
     /**
      * @return int
      */
-    public function hasErrors() {
+    public function hasErrors()
+    {
         return count($this->getErrors());
     }
 
@@ -73,7 +75,7 @@ abstract class AbstractEventCounter
     protected function validateArgs(): bool
     {
         $keys = array_keys(array_filter($this->args));
-        if(!$keys === $this->requiredFields) {
+        if (!$keys === $this->requiredFields) {
             $this->errors['attributes'] = "Required fields doesn't passed";
         }
         return !$this->hasErrors();
@@ -83,7 +85,8 @@ abstract class AbstractEventCounter
      * Returns value of amount of calculations
      * @return int
      */
-    public function getAmount() {
+    public function getAmount()
+    {
         return $this->amount;
     }
 

@@ -58,11 +58,14 @@ class LinkClickEvent extends AbstractEventCounter
      */
     protected function validateArgs(): bool
     {
-        if(parent::validateArgs()) {
-            if(filter_var($this->args['link'], FILTER_VALIDATE_URL)) {
+        if (parent::validateArgs()) {
+            if (!filter_var($this->args['link'], FILTER_VALIDATE_URL)) {
                 $this->errors['link'] = "Link must be url string";
             }
+            if (!is_numeric($this->args['id'])) {
+                $this->errors['id'] = "Id must be an integer";
+            }
         }
-        return $this->hasErrors();
+        return !$this->hasErrors();
     }
 }
