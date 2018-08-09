@@ -8,8 +8,6 @@
 
 namespace abdujabbor\counter;
 
-use abdujabbor\counter\storage\IOStorage;
-
 class Invoker
 {
     protected $event;
