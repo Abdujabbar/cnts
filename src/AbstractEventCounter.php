@@ -88,6 +88,9 @@ abstract class AbstractEventCounter
      */
     protected function validateArgs(): bool
     {
+        if (!\is_array($this->args) || 0 === \count($this->args)) {
+            $this->errors['attributes'] = sprintf("args param cannot be empty");
+        }
         $keys = array_keys(array_filter($this->args));
         $requiredFields = $this->getRequiredFields();
         sort($requiredFields);
